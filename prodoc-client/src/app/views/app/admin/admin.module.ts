@@ -11,7 +11,7 @@ import { LayoutContainersModule } from 'src/app/containers/layout/layout.contain
 import { FormValidationsContainersModule } from 'src/app/containers/form-validations/form.validations.containers.module';
 import { FormsModule as FormsModuleAngular, ReactiveFormsModule } from '@angular/forms';
 import { SimpleNotificationsModule } from 'angular2-notifications';
-
+import { NgSelectModule } from '@ng-select/ng-select';
 
 
 @NgModule({
@@ -19,7 +19,7 @@ import { SimpleNotificationsModule } from 'angular2-notifications';
   imports: [
     CommonModule,
     AdminRoutingModule,
-
+    NgSelectModule,
     SharedModule,
     LayoutContainersModule,
     DashboardsContainersModule,

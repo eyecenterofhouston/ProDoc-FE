@@ -12,7 +12,8 @@ public class PatientReferral {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Integer id;
-    String name;
+    String firstName;
+    String lastName;
     String phone;
     String qrCodeClaimed;
 

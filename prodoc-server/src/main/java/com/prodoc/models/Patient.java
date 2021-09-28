@@ -19,7 +19,10 @@ public class Patient {
     private Integer id;
 
     @Column(length = 20)
-    private String name;
+    private String firstName;
+
+    @Column(length = 20)
+    private String lastName;
 
     @Column(length=20)
     private String phone;
@@ -29,6 +32,12 @@ public class Patient {
 
     @Column(length=20)
     private String qrCode;
+
+    @Column(length=11)
+    private Integer clinicId;
+
+    @Column(length=11)
+    private Integer userId;
 
     @CreationTimestamp
     @Temporal(TemporalType.TIMESTAMP)

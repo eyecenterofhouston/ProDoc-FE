@@ -19,16 +19,16 @@ export class PatientRegistrationComponent implements OnInit{
 
    ngOnInit(): void {
     this.basicForm = new FormGroup({
-      name: new FormControl(null, [Validators.required, Validators.minLength(2)]),
+      firstName: new FormControl(null, [Validators.required, Validators.minLength(2)]),
+      lastName: new FormControl(null, [Validators.required, Validators.minLength(2)]),
       phone: new FormControl(null, [Validators.required]),
       address: new FormControl(null)
     });
   }
 
   onSubmit(): void {
-    console.log(this.basicForm);
-    if(this.basicForm.get("name").value!=null&&this.basicForm.get("phone").value!=null){
-      this.shareForCareService.patientRegistration(this.basicForm).subscribe((data:any)=>{
+    if(this.basicForm.get("firstName").value!=null&&this.basicForm.get("phone").value!=null){
+      this.shareForCareService.patientRegistration(this.basicForm.value).subscribe((data:any)=>{
           if(data.status=="error"){
             this.patient=data.data;
             this.notifications.create('',data.message, NotificationType.Bare, {
@@ -46,7 +46,6 @@ export class PatientRegistrationComponent implements OnInit{
         }
       })
     }
-   
   }
 
 

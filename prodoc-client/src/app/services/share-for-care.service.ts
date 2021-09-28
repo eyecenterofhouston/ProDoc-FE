@@ -9,24 +9,15 @@ export class ShareForCareService {
 
   constructor( private http: HttpClient) { }
 
+  PATIENT_REFFERAL:string=environment.apiUrl + 's4c/patientReferral ';
+  PATIENT_REGISTRATION:string=environment.apiUrl + 's4c/registerPatient ';
+
    patientRegistration(data:any) {
-    const body = {
-      "name":data.get("name").value,
-      "phone":data.get("phone").value,
-      "address":data.get("address").value
-      }
-      const Url = environment.apiUrl + 's4c/registerPatient ';
-      return this.http.post(Url, body);
+      return this.http.post(this.PATIENT_REGISTRATION, data);
   }
 
-   patientReferral(data:any,qrCode:string) {
-    const body = {
-      "name":data.get("referredName").value,
-      "phone":data.get("referredPhone").value,
-      "qrCodeClaimed":qrCode
-      }
-      const Url = environment.apiUrl + 's4c/patientReferral ';
-      return this.http.post(Url, body);
+   patientReferral(data:any) {
+      return this.http.post(this.PATIENT_REFFERAL, data);
   }
 
    verifyQRCode( qrCode:string) {

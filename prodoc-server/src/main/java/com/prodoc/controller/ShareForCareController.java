@@ -21,25 +21,25 @@ public class ShareForCareController {
     ShareForCareService shareForCareService;
 
     @PostMapping("/registerPatient")
-    @PreAuthorize("hasRole('USER') or hasRole('MODERATOR') or hasRole('ADMIN')")
+    @PreAuthorize("hasRole('USER') or hasRole('MODERATOR') or hasRole('ADMIN') or hasRole('CLIENT')")
     public ResponseEntity<Object> registerPatient(@Valid @RequestBody Patient patient) {
         return ResponseEntity.ok(shareForCareService.registerPatient(patient));
     }
 
     @GetMapping("/qrcode/{code}")
-    @PreAuthorize("hasRole('USER') or hasRole('MODERATOR') or hasRole('ADMIN')")
+    @PreAuthorize("hasRole('USER') or hasRole('MODERATOR') or hasRole('ADMIN') or hasRole('CLIENT')")
     public ResponseEntity<Object> getPatientDetails(@PathVariable String code) {
         return ResponseEntity.ok(shareForCareService.getPatienByQRCode(code));
     }
 
     @PostMapping("/patientReferral")
-    @PreAuthorize("hasRole('USER') or hasRole('MODERATOR') or hasRole('ADMIN')")
+    @PreAuthorize("hasRole('USER') or hasRole('MODERATOR') or hasRole('ADMIN') or hasRole('CLIENT')")
     public ResponseEntity<Object> patientReferral(@Valid @RequestBody PatientReferral referal) {
         return ResponseEntity.ok(shareForCareService.claimPatientReferral(referal));
     }
 
     @GetMapping("/recentReg")
-    @PreAuthorize("hasRole('USER') or hasRole('MODERATOR') or hasRole('ADMIN')")
+    @PreAuthorize("hasRole('USER') or hasRole('MODERATOR') or hasRole('ADMIN') or hasRole('CLIENT')")
     public ResponseEntity<Object> getRecentRegistration() {
         return ResponseEntity.ok(shareForCareService.getRecentReggistered());
     }

@@ -29,17 +29,17 @@ export class QRScanner implements OnInit  {
     this.patientReferalForm = new FormGroup({
       patientName: new FormControl(null, [Validators.required, Validators.minLength(2), Validators.pattern('^[A-Za-z]+$')]),
       patientPhone: new FormControl(null, [Validators.required, Validators.pattern('^(?:1[01][0-9]|120|1[7-9]|[2-9][0-9])$')]),
-      referredName:new FormControl(null, [Validators.required, Validators.minLength(2), Validators.pattern('^[A-Za-z]+$')]),
-      referredPhone:new FormControl(null, [Validators.required, Validators.pattern('^(?:1[01][0-9]|120|1[7-9]|[2-9][0-9])$')])
+      firstName:new FormControl(null, [Validators.required, Validators.minLength(2), Validators.pattern('^[A-Za-z]+$')]),
+      lastName:new FormControl(null, [Validators.required, Validators.minLength(2), Validators.pattern('^[A-Za-z]+$')]),
+      phone:new FormControl(null, [Validators.required, Validators.pattern('^(?:1[01][0-9]|120|1[7-9]|[2-9][0-9])$')]),
+      qrCodeClaimed:new FormControl(null,[])
     });
   }
 
   public scanSuccessHandler($event: any) {
     this.scannerEnabled = false;
-    this.information = "Espera recuperando información... ";
-
+    this.information = "PRODOC";
     const appointment = new Appointment($event);
-    console.log(appointment.identifier);
     this.currentQr=appointment.identifier;
     this.notifications.create('Success', "Scanned succesfully", NotificationType.Bare, {
       theClass: 'outline primary',
@@ -49,18 +49,23 @@ export class QRScanner implements OnInit  {
     this.share4Care.verifyQRCode(appointment.identifier).subscribe((data:any)=>{
       this.patient=data;
       this.patientReferalForm.setValue({
-        patientName:this.patient.name,
+        patientName:this.patient.firstName +" "+this.patient.lastName,
         patientPhone:this.patient.phone,
-        referredName:null,
-        referredPhone:null
+        firstName:[],
+        lastName:[],
+        phone:[],
+        qrCodeClaimed:[],
       })
     })
   }
 
   onSubmit(): void{
-    console.log();
-    if(this.patientReferalForm.get("referredName")!=null && this.patientReferalForm.get("referredPhone")!=null)
-       this.share4Care.patientReferral(this.patientReferalForm,this.currentQr).subscribe((data=>{
+    if(this.patientReferalForm.get("referredFirstName")!=null && this.patientReferalForm.get("referredPhone")!=null)
+      this.patientReferalForm.patchValue({
+        qrCodeClaimed: this.currentQr
+      });
+    this.patientReferalForm.controls.qrCodeClaimed.setValue(this.currentQr);
+       this.share4Care.patientReferral(this.patientReferalForm.value).subscribe((data=>{
         var dataPulled:any= data;
         this.notifications.create(dataPulled.status,dataPulled.message , NotificationType.Bare, {
           theClass: 'outline primary',
@@ -69,7 +74,7 @@ export class QRScanner implements OnInit  {
       });
     }))
   }
-
+   
   public enableScanner() {
     this.scannerEnabled = !this.scannerEnabled;
     //this.information = "No se ha detectado información de ningún código. Acerque un código QR para escanear.";

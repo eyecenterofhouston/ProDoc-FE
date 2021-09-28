@@ -15,10 +15,16 @@
               
                   <form [formGroup]="basicForm" #form="ngForm" (ngSubmit)="onSubmit()" novalidate class="tooltip-label-right">
                     <div class="form-group error-l-50">
-                      <label>{{ 'forms.name' | translate }}</label>
-                      <input type="text" class="form-control" name="name" formControlName="name">
-                      <div *ngIf="basicForm.get('name').errors?.required && form.submitted" class="invalid-tooltip">Name is required!</div>
-                      <div *ngIf="basicForm.get('name').errors?.minlength && form.submitted" class="invalid-tooltip">Name must contain at least 2 characters!</div>
+                      <label>{{ 'forms.firstname' | translate }}</label>
+                      <input type="text" class="form-control" name="firstName" formControlName="firstName">
+                      <div *ngIf="basicForm.get('firstName').errors?.required && form.submitted" class="invalid-tooltip">First Name is required!</div>
+                      <div *ngIf="basicForm.get('firstName').errors?.minlength && form.submitted" class="invalid-tooltip">First Name must contain at least 2 characters!</div>
+                    </div>
+                    <div class="form-group error-l-50">
+                      <label>{{ 'forms.lastname' | translate }}</label>
+                      <input type="text" class="form-control" name="lastName" formControlName="lastName">
+                      <div *ngIf="basicForm.get('lastName').errors?.required && form.submitted" class="invalid-tooltip">Last Name is required!</div>
+                      <div *ngIf="basicForm.get('lastName').errors?.minlength && form.submitted" class="invalid-tooltip">Last Name must contain at least 2 characters!</div>
                     </div>
                     <div class="form-group">
                       <label>{{ 'forms.phone' | translate }}</label>
@@ -43,7 +49,7 @@
             <div class="card d-flex flex-row mb-3" >
               <div class="d-flex flex-grow-1 min-width-zero">
                 <div class="card-body align-self-center d-flex flex-column flex-md-row justify-content-between min-width-zero align-items-md-center">
-                  <a href="javascript:;" class="mb-1 truncate w-20 w-xs-100">{{patient.name}}</a>
+                  <a href="javascript:;" class="mb-1 truncate w-20 w-xs-100">{{patient.firstName}} {{patient.lastName}}</a>
                   <p class="mb-1 text-muted text-small w-20 w-xs-100">{{patient.phone}}</p>
                   <p class="mb-1 text-muted text-small w-20 w-xs-100">{{patient.address}}</p>
                 </div>

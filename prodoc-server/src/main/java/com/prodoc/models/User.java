@@ -14,7 +14,6 @@ import java.util.Set;
 @Entity
 @Table(	name = "users",
         uniqueConstraints = {
-                @UniqueConstraint(columnNames = "username"),
                 @UniqueConstraint(columnNames = "email")
         })
 public class User {
@@ -24,8 +23,11 @@ public class User {
     private Long id;
 
     @NotBlank
-    @Size(max = 20)
-    private String username;
+    @Size(min = 3, max = 20)
+    private String firstName;
+
+    @Size(min = 3, max = 20)
+    private String lastName;
 
     @NotBlank
     @Size(max = 50)
@@ -37,13 +39,16 @@ public class User {
     @JsonIgnore
     private String password;
 
+    @Column(length=11)
+    private Integer clinicId;
+
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(	name = "user_roles",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles = new HashSet<>();
 
-    @OneToMany(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(	name = "user_apps",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "app_id"))
@@ -52,8 +57,9 @@ public class User {
     public User() {
     }
 
-    public User(String username, String email, String password) {
-        this.username = username;
+    public User(String firstName,String lastName, String email, String password) {
+        this.firstName = firstName;
+        this.lastName=lastName;
         this.email = email;
         this.password = password;
     }

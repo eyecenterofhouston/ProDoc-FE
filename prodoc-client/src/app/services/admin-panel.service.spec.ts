@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { ShareForCareService } from './share-for-care.service';
+import { AdminPanelService } from './admin-panel.service';
 
-describe('ShareForCareService', () => {
-  let service: ShareForCareService;
+describe('AdminPanelService', () => {
+  let service: AdminPanelService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(ShareForCareService);
+    service = TestBed.inject(AdminPanelService);
   });
 
   it('should be created', () => {

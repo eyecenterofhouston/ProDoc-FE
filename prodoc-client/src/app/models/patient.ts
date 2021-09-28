@@ -1,7 +1,8 @@
 
 export class Patient{
    
-    name:string;
+    firstName:string;
+    lastName:string;
     phone:string;
     address:string;
     qrCode:string;

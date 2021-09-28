@@ -8,11 +8,17 @@ import javax.validation.constraints.Size;
 import java.util.Set;
 
 @Data
-public class SignupRequest {
+public class UserSignupRequest {
+
+    @Size(min = 3, max = 20)
+    private String username;
 
     @NotBlank
     @Size(min = 3, max = 20)
-    private String username;
+    private String firstName;
+
+    @Size(min = 3, max = 20)
+    private String lastName;
 
     @NotBlank
     @Size(max = 50)
